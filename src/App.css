@@ -1,38 +1,87 @@
-.App {
+.App-header {
+  max-height: 100;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.App-taskbar {
+  max-height: 100;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  justify-content: center;
+}
+
+.App-calendar {
+  padding-top: 30px;
+  padding-left: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Week-of-text {
+  font-weight: bold;
+  text-align: left;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Week-div {
+  display: grid;
+  grid-template-columns: 170px 170px 170px 170px 170px 170px 170px;
+  gap: 7px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Sunday-div {
+  height: 30px;
+  background-color: rgb(122, 252, 252);
+  border-radius: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.Monday-div {
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Tuesday-div {
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 5px;
+}
+
+.Wednesday-div {
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 5px;
+}
+
+.Thursday-div {
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 5px;
+}
+
+.Friday-div {
+  height: 30px;
+  background-color: lightblue;
+  border-radius: 5px;
+}
+
+.Saturday-div {
+  height: 30px;
+  background-color: rgb(122, 252, 252);
+  border-radius: 5px;
+}
+
+.Date-div {
+  height: 370px;
+  background-color: white;
+  border-radius: 5px;
+  border-style: inset;
+  border-color: powderblue;
+  text-align: left;
+  padding-left: 5px;
+}
+
+.Date-text {
+  font-size: small;
 }
