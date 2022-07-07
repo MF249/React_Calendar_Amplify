@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Datecard from './datecard';
 
 class Calendar extends Component {
-
+  
   getMonthName = (num) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -11,35 +11,44 @@ class Calendar extends Component {
     return monthNames[num];
   }
 
-  populateDates = () => {
-    let temp = new Date();
-    let i, diff = 0;
+  getDayName = (num) => {
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", 
+    "Thursday", "Friday","Saturday"];
 
-    let index = this.state.current.getDay();
-    this.state.dates[index] = this.state.current.getDate();
+    return dayNames[num];
+  }
 
-    diff = index;
-    for (i = 0; i < index; i++) {
-      temp.setDate(this.state.current.getDate() - diff);
-      this.state.dates[i] = temp.getDate();
-      diff--;
+  populateDates = (dates) => {
+
+    let dayNum = new Date(this.state.year, (this.state.month + 1), 0).getDate();
+    let firstDay = new Date(this.state.year, this.state.month, 1).getDay();
+
+    for (var i = 0; i < firstDay; i++) {
+      dates.push(<div className="Blank-div"></div>);
     }
+
+    for (var i = 1; i < (dayNum + 1); i++) {
+      dates.push(<Datecard date={i} />);
+    }
+
   }
   
   constructor(props) {
     super(props);
     this.state = {
-      current : new Date(),
-      dates : []
+      month: (new Date()).getMonth(),
+      year: (new Date()).getFullYear()
     };  
   }
 
   render() {
-      return (
+    
+    const dates = [];  
+    return (
         
-        <div className="App-calendar">
-          <p className="Week-of-text">{this.getMonthName(this.state.current.getMonth())} {this.state.current.getFullYear()}</p>
-          <div className="Week-div" onLoad={this.populateDates()}>
+        <div className="App-calendar" onLoad={this.populateDates(dates)}>
+          <p className="Week-of-text">{this.getMonthName(this.state.month)} {this.state.year}</p>
+          <div className="Week-div">
             <div className="Sunday-div">
               <p>Sunday</p>
             </div>
@@ -62,13 +71,8 @@ class Calendar extends Component {
               <p>Saturday</p>
             </div>
 
-            <Datecard date={this.state.dates[0]}/>
-            <Datecard date={this.state.dates[1]}/>
-            <Datecard date={this.state.dates[2]}/>
-            <Datecard date={this.state.dates[3]}/>
-            <Datecard date={this.state.dates[4]}/>
-            <Datecard date={this.state.dates[5]}/>
-            <Datecard date={this.state.dates[6]}/>
+            {dates}
+
           </div>
         </div>
       );
