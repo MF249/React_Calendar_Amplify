@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
 
-class Heading extends Component {
-    render() {
-        return (
-            <div>
-                <p>React Calendar</p>
-            </div>
-        );
-    }
+function Heading() {
+    return (
+        <div>
+            <p>React Calendar</p>
+        </div>
+    );
 }
 
 export default Heading;
