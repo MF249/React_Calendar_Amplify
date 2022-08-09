@@ -1,23 +1,18 @@
 import './App.css';
-import React, { useState } from 'react';
-import Heading from './components/heading';
-import Calendar from './components/calendar';
-import Button from "react-bootstrap/Button";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import MainPage from './pages/MainPage';
+import AuthenticationPage from './pages/AuthenticationPage';
 
 function App() {
-
   return (
-    
-    <div className="App">
-      <div className="App-header">
-        <Heading />
-      </div>
-      <div className="App-taskbar">
-        <Button variant="success">Save</Button>&nbsp;
-        <Button variant="primary">Share</Button>&nbsp;
-      </div>
-      <Calendar />
-    </div>
+    <Router >
+      <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/Login" element={<AuthenticationPage />} />
+      </Routes>  
+    </Router>
   );
 }
 

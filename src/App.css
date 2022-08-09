@@ -54,6 +54,11 @@
   margin: 0.5px;
 }
 
+.Auth-div {
+  display: flex;
+  align-items: center;
+}
+
 .Week-div {
   display: grid;
   grid-template-columns: 170px 170px 170px 170px 170px 170px 170px;
