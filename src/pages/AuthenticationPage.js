@@ -1,23 +1,33 @@
 import '../App.css';
 import React from 'react';
 import "@aws-amplify/ui-react/styles.css";
-import {
-    withAuthenticator,
-    Button,
-    Heading,
-    View,
-    Card,
-} from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
+import { useNavigate } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Button from "react-bootstrap/Button";
+import Card from 'react-bootstrap/Card';
 
-function AuthenticationPage({ user, signOut }) {
+function AuthenticationPage() {
+    
+    const navigate = useNavigate();
+
     return (
-        <View className="App">
-            <Card>
-                <Heading level={1}>Welcome, {user.username}!</Heading>
-            </Card>
-            <Button onClick={signOut}>Sign Out</Button>
-        </View>
+        <Authenticator>
+            {({ signOut, user }) => (
+                <Container className='Auth-container'>
+                    <Card className='Auth-card'>
+                        <Card.Body>
+                            <Card.Title>Sign In Confirmation</Card.Title>
+                            <Card.Text>You have signed in as {user.username}.</Card.Text>
+                            <Card.Text>Return to the calendar to begin adding events to your calendar!</Card.Text>
+                            <Button variant="success" onClick={signOut}>Sign out</Button>&nbsp;
+                            <Button variant="danger" onClick={() => navigate("/")}>Return to Calendar</Button>
+                        </Card.Body>
+                    </Card>
+                </Container>
+            )}
+        </Authenticator>
     );
 }
 
-export default withAuthenticator(AuthenticationPage);
+export default AuthenticationPage;

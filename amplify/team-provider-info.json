@@ -16,5 +16,23 @@
         "reactcalendaramplifye9246605": {}
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reactcalendaramplify-dev-175530-authRole",
+      "UnauthRoleArn": "arn:aws:iam::955439354000:role/amplify-reactcalendaramplify-dev-175530-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::955439354000:role/amplify-reactcalendaramplify-dev-175530-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-reactcalendaramplify-dev-175530-deployment",
+      "UnauthRoleName": "amplify-reactcalendaramplify-dev-175530-unauthRole",
+      "StackName": "amplify-reactcalendaramplify-dev-175530",
+      "StackId": "arn:aws:cloudformation:us-east-1:955439354000:stack/amplify-reactcalendaramplify-dev-175530/fd1ffb80-182d-11ed-acd4-12b3f4b3dfa3",
+      "AmplifyAppId": "d1p863tztc34ra"
+    },
+    "categories": {
+      "auth": {
+        "reactcalendaramplifye9246605": {}
+      }
+    }
   }
 }
