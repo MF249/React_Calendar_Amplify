@@ -13,7 +13,7 @@ class Datecard extends Component {
         for(var i = 0; i < eventsArray.length; i++) {
             var obj = this.props.events[i];
             if (obj.date === dateString && obj.month === monthString && obj.year === yearNumber) {
-                newEventBox.push(<p class='Event-text'>{obj.desc}</p>);
+                newEventBox.push(<p className='Event-text'>{obj.desc}</p>);
             }
         }
             
@@ -35,7 +35,7 @@ class Datecard extends Component {
             for(var i = 0; i < eventsArray.length; i++) {
                 var obj = this.props.events[i];
                 if (obj.date === dateString && obj.month === monthString && obj.year === yearNumber) {
-                    newEventBox.push(<p class='Event-text'>{obj.desc}</p>);
+                    newEventBox.push(<p className='Event-text'>{obj.desc}</p>);
                 }
             }
             

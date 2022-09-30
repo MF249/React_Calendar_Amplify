@@ -3,7 +3,10 @@ import Datecard from './datecard';
 import Select from 'react-select';
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
-import Modal from "react-bootstrap/Modal"
+import Modal from "react-bootstrap/Modal";
+import { API } from 'aws-amplify';
+import { createEvent as createEventMutation, deleteEvent as deleteEventMutation } from '../graphql/mutations';
+
 
 class Calendar extends Component {
   
@@ -27,6 +30,17 @@ class Calendar extends Component {
     return Math.abs(index);
   }
 
+  componentDidUpdate(prevProps) {
+    
+    if (this.props.user !== prevProps.user) {
+      console.log("logged in user has been updated");
+    }
+
+    if (this.props.importedEvents !== prevProps.importedEvents) {
+      console.log("user's events have been updated");
+    }
+  }
+
   populateDates = (dates) => {
 
     if (this.state.month === "")
@@ -37,7 +51,6 @@ class Calendar extends Component {
     
     let dayNum = new Date(this.state.year, (this.state.month + 1), 0).getDate();
     let firstDay = new Date(this.state.year, this.state.month, 1).getDay();
-
     for (var i = 0; i < firstDay; i++) {
       dates.push(<div className="Blank-div"></div>);
     }
@@ -49,6 +62,18 @@ class Calendar extends Component {
         events={this.state.events}/>);
     }
 
+  }
+
+  createNote = async (date, description) => {
+    if (!date || !description) return;
+    let insert = { "date" : date, "description" : description };
+
+    API.graphql({ query: createEventMutation, variables: { input: insert } }).then((result) => {
+      console.log("Created event id: " + result.data.createEvent.id);
+      return result.data.createEvent.id;
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   handleNameChange = e => {
@@ -66,24 +91,51 @@ class Calendar extends Component {
     let month = this.getMonthName(insertDate.getMonth());
     let day = insertDate.getDate() + 1;
     let year = insertDate.getFullYear();
-    // let end = Math.floor(Math.random() * 100) + 1;
-    // let key = month + "~" + day + "~" + year + "~" + end;
+    let id = -1;
+    
+    if (this.props.user !== 'Guest') {
+      id = this.createNote(insertDate, this.state.eventName);
+    }
 
-    let insert = { "month" : month, "date" : day, "year" : year, "desc" : this.state.eventName };
+    console.log(id);
+    
+    let insert = { 
+      "month" : month, 
+      "date" : day, 
+      "year" : year, 
+      "desc" : this.state.eventName,
+      "id" : this.state.eventId
+    };
+
     this.setState(prevState => ({ 
       events : [insert, ...prevState.events]
-    }));  
-    // localStorage.setItem(key, JSON.stringify(insert));
-
+    }));
     this.setState({ showAdd : false });
-    alert("\r\nEvent added to calendar\r\nDate: " + this.state.eventDate
-      + "\r\nDescription: " + this.state.eventName);
+  }
+
+  deleteNote = async ( id ) => { 
+    console.log(id);
+    let idString = id.toString();
+    
+    let select = { id: idString };
+    
+    API.graphql({ query: deleteEventMutation, variables: { input: select }}).then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   handleDeleteEvent = e => {
     e.preventDefault();
-
+    
+    const id = this.state.events[this.state.deleteIndex].id;
     const newEvents = [...this.state.events];
+    
+    if (this.props.user !== 'Guest') {
+      this.deleteNote(id);
+    }
+
     newEvents.splice(this.state.deleteIndex, 1);
     this.setState({ events : newEvents });
     this.setState({ showRemove : false });
@@ -103,7 +155,6 @@ class Calendar extends Component {
       var obj = eventsArray[i];
       if (obj.date === day && obj.month === month) {
           deleteDesc.push({ value : i, label : obj.desc });
-          // console.log({ value : i, label : obj.desc });
       }
     }
   }
@@ -148,7 +199,8 @@ class Calendar extends Component {
       events: [],
       eventName: "",
       eventDate: "",
-      deleteIndex: 0
+      deleteIndex: 0,
+      eventId: -1
     };  
   }
 
