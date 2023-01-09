@@ -6,8 +6,22 @@
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365,
-      "apiKeyExpirationDate": "2023-08-27T22:56:53.698Z",
-      "keyDescription": "React Calendar Database"
-    }
+      "apiKeyExpirationDate": "2023-09-30T21:14:17.923Z",
+      "keyDescription": "react calendar datastore"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authreactcalendaramplifye9246605"
+      }
+    ]
   }
 }

@@ -4,11 +4,18 @@ import Select from 'react-select';
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import Modal from "react-bootstrap/Modal";
-import { API } from 'aws-amplify';
-import { createEvent as createEventMutation, deleteEvent as deleteEventMutation } from '../graphql/mutations';
+import { DataStore } from '@aws-amplify/datastore';
+import { Todo } from '../models';
 
 
 class Calendar extends Component {
+  
+  sleep = (ms) => new Promise(resolve => {
+    setTimeout(
+        () => {resolve()},
+        ms
+    );
+  });
   
   getMonthName = (num) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -64,16 +71,22 @@ class Calendar extends Component {
 
   }
 
-  createNote = async (date, description) => {
-    if (!date || !description) return;
-    let insert = { "date" : date, "description" : description };
+  createNote = async (year, month, day, description) => {
+    if (!year || !month || !day || !description) return;
 
-    API.graphql({ query: createEventMutation, variables: { input: insert } }).then((result) => {
-      console.log("Created event id: " + result.data.createEvent.id);
-      return result.data.createEvent.id;
-    }).catch((error) => {
-      console.error(error);
-    });
+    try {
+      await DataStore.save(
+        new Todo({
+          year: year,
+          month: month,
+          day: day,
+          description: description
+        })
+      );
+      console.log("Event saved successfully!");
+    } catch (error) {
+      console.log("Error saving post", error);
+    }
   }
 
   handleNameChange = e => {
@@ -91,13 +104,10 @@ class Calendar extends Component {
     let month = this.getMonthName(insertDate.getMonth());
     let day = insertDate.getDate() + 1;
     let year = insertDate.getFullYear();
-    let id = -1;
     
     if (this.props.user !== 'Guest') {
-      id = this.createNote(insertDate, this.state.eventName);
+      this.createNote(year, month, day, this.state.eventName);
     }
-
-    console.log(id);
     
     let insert = { 
       "month" : month, 
@@ -110,20 +120,12 @@ class Calendar extends Component {
     this.setState(prevState => ({ 
       events : [insert, ...prevState.events]
     }));
+    console.dir(this.state.events);
     this.setState({ showAdd : false });
   }
 
   deleteNote = async ( id ) => { 
     console.log(id);
-    let idString = id.toString();
-    
-    let select = { id: idString };
-    
-    API.graphql({ query: deleteEventMutation, variables: { input: select }}).then((result) => {
-      console.log(result);
-    }).catch((error) => {
-      console.error(error);
-    });
   }
 
   handleDeleteEvent = e => {

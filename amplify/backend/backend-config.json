@@ -29,18 +29,36 @@
     "reactcalendaramplify": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reactcalendaramplifye9246605",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-08-27T22:56:53.698Z",
-              "description": "React Calendar Database"
+              "apiKeyExpirationDate": "2023-09-30T21:14:17.923Z",
+              "description": "react calendar datastore"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authreactcalendaramplifye9246605"
+              }
+            }
+          ]
         }
       }
     }

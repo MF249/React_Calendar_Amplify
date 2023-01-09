@@ -4,8 +4,9 @@ import Heading from '../components/heading';
 import Calendar from '../components/calendar';
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import { listEvents } from '../graphql/queries';
-import { Auth, API } from 'aws-amplify';
+import { DataStore } from '@aws-amplify/datastore';
+import { Todo } from '../models';
+import { Auth } from 'aws-amplify';
 
 function MainPage() {
 
@@ -20,9 +21,9 @@ function MainPage() {
     async function getUserInfo() {
         const newUser = await Auth.currentAuthenticatedUser();
         setUser(newUser.username);
-        const apiData = await API.graphql({ query: listEvents });
-        console.dir(apiData.data.listEvents.items);
-        setImportedEvents(apiData.data.listEvents.items);
+        const models = await DataStore.query(Todo);
+        console.log(models);
+        setImportedEvents(models);
     }
 
     return (

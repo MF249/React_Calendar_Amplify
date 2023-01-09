@@ -1,5 +1,12 @@
 {
   "AppSyncApiName": "reactcalendaramplify",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-09-30T21:14:21.847Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authreactcalendaramplifye9246605",
+      "Outputs.UserPoolId"
+    ]
+  }
 }
