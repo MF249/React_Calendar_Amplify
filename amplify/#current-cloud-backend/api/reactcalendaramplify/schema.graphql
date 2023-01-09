@@ -1,0 +1,8 @@
+type Todo @model @auth(rules: [{allow: public}, {allow: private, operations: [create, read, delete]}, {allow: owner, operations: [create, read, delete]}]) {
+  id: ID!
+  year: Int!
+  day: Int!
+  month: Int!
+  description: String!
+}
+ 

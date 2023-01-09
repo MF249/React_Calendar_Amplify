@@ -1,0 +1,19 @@
+{
+    "AppSyncApiName": "reactcalendaramplify",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authreactcalendaramplifye9246605",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-reactcalendaramplify-dev-175530-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/66a225a2b263eb1e9545925cc43d05e71d48ebfd"
+}

@@ -1,0 +1,102 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reactcalendaramplify-dev-175530-authRole",
+      "UnauthRoleArn": "arn:aws:iam::955439354000:role/amplify-reactcalendaramplify-dev-175530-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::955439354000:role/amplify-reactcalendaramplify-dev-175530-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-reactcalendaramplify-dev-175530-deployment",
+      "UnauthRoleName": "amplify-reactcalendaramplify-dev-175530-unauthRole",
+      "StackName": "amplify-reactcalendaramplify-dev-175530",
+      "StackId": "arn:aws:cloudformation:us-east-1:955439354000:stack/amplify-reactcalendaramplify-dev-175530/fd1ffb80-182d-11ed-acd4-12b3f4b3dfa3",
+      "AmplifyAppId": "d1p863tztc34ra"
+    }
+  },
+  "auth": {
+    "reactcalendaramplifye9246605": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-east-1_TR9kiYGks",
+        "AppClientIDWeb": "7sr4a8u2atot1vrctu0gjbsnl7",
+        "AppClientID": "5aevq2vq7mmqddonrg1vluatv8",
+        "IdentityPoolId": "us-east-1:911e7711-6fd7-43f1-95de-c0e7d88e8f01",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:955439354000:userpool/us-east-1_TR9kiYGks",
+        "IdentityPoolName": "reactcalendaramplifye9246605_identitypool_e9246605__dev",
+        "UserPoolName": "reactcalendaramplifye9246605_userpool_e9246605"
+      },
+      "lastPushTimeStamp": "2022-09-30T21:17:59.373Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reactcalendaramplify-dev-175530-deployment/amplify-cfn-templates/auth/reactcalendaramplifye9246605-cloudformation-template.json",
+        "logicalId": "authreactcalendaramplifye9246605"
+      }
+    }
+  },
+  "api": {
+    "reactcalendaramplify": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reactcalendaramplifye9246605",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2023-09-30T21:14:17.923Z",
+              "description": "react calendar datastore"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authreactcalendaramplifye9246605"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "h5j5hqwyavhnnfeysapbqtgzp4",
+        "GraphQLAPIEndpointOutput": "https://b65t47zq5zgdlkfilasqay6z44.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-o5qwpsm5abcy5eexjukjhndnwm"
+      },
+      "lastPushTimeStamp": "2022-09-30T21:17:59.949Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reactcalendaramplify-dev-175530-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apireactcalendaramplify"
+      },
+      "lastPushDirHash": "7zubJY3BqtHhcrdH+4BojII3yQs="
+    }
+  }
+}
